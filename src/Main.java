@@ -1,4 +1,5 @@
-import gui.Application;
+import logic.Application;
+import logic.ByteFileReader;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -6,7 +7,7 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        FileReader fileReader = new FileReader();
+        ByteFileReader fileReader = new ByteFileReader();
         fileReader.setFilename("Telegram");
 
         ArrayList<Integer> data = fileReader.getData();

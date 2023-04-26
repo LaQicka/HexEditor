@@ -100,6 +100,7 @@ public class CenterPanel extends JPanel {
         textDoc.setDocumentFilter(new DocumentFilter() {
             public void insertString(FilterBypass fb, int offset, String text, AttributeSet attr) throws BadLocationException {
                 super.insertString(fb, offset, text, attr);
+                textArea.setCaretPosition(offset);
             }
             public void remove(FilterBypass fb, int offset, int length) throws BadLocationException {
                 String selected = textArea.getSelectedText();
@@ -107,6 +108,7 @@ public class CenterPanel extends JPanel {
                 for(int i=0;selected!=null && i<selected.length();i++) if(selected.charAt(i) == '\n') length--; // пересчет длины строки для удаления без /n
                 StringBuilder now = new StringBuilder(textArea.getText());
                 if(!now.toString().equals(textContent.toString())) onTextChange(offset-offset/app.getWidth(),length,Type.REMOVE, "");
+                textArea.setCaretPosition(offset);
 
             }
             public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
@@ -123,6 +125,7 @@ public class CenterPanel extends JPanel {
                         else onTextChange(offset-offset/app.getWidth(),length,Type.INSERT, text);                            // требуется менять offset
                     }
                 }
+                textArea.setCaretPosition(offset);
             }
             //offset - индекс измененного символа
         });
@@ -139,6 +142,7 @@ public class CenterPanel extends JPanel {
                     StringBuilder hex = new StringBuilder(hexArea.getText());
                     onHexChange(hex);
                 }
+                hexArea.setCaretPosition(offset);
             }
             public void remove(FilterBypass fb, int offset, int length) throws BadLocationException {
                 super.remove(fb, offset, length);
@@ -147,6 +151,7 @@ public class CenterPanel extends JPanel {
                     StringBuilder hex = new StringBuilder(hexArea.getText());
                     onHexChange(hex);
                 }
+                hexArea.setCaretPosition(offset);
             }
             public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
                 super.replace(fb, offset, length, text, attrs);
@@ -155,6 +160,7 @@ public class CenterPanel extends JPanel {
                     StringBuilder hex = new StringBuilder(hexArea.getText());
                     onHexChange(hex);
                 }
+                hexArea.setCaretPosition(offset);
             }
             //offset - индекс измененного символа
         });
