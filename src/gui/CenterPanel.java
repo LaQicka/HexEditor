@@ -1,5 +1,7 @@
 package gui;
 
+import logic.Application;
+
 import javax.swing.*;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
@@ -26,10 +28,10 @@ public class CenterPanel extends JPanel {
         this.height = 0;
         this.setLayout(new BorderLayout());
         center = new JPanel(new GridLayout(1, 2));
-//        center = new JPanel();
-//        JScrollPane centerScrollPane = new JScrollPane(center);
-//        centerScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
+        JScrollPane scrollPane = new JScrollPane(center);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 //  HEX Panel config
 //  <----------------------------------------------------------------->
         {
@@ -43,13 +45,6 @@ public class CenterPanel extends JPanel {
 
             JPanel hexWestPanel = new JPanel();
             hexPanel.add(hexWestPanel, BorderLayout.WEST);
-
-//            JPanel hexEastPanel = new JPanel();
-//            hexPanel.add(hexEastPanel,BorderLayout.EAST);
-
-            JScrollPane hexScrollPane = new JScrollPane(hexPanel);
-            hexScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-            hexScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
             hexArea = new JTextArea(23, 24); // Текстовая область данных
             hexArea.setFont(new Font("Courier New", 1, 15));
@@ -66,13 +61,8 @@ public class CenterPanel extends JPanel {
             hexWestArea.setEnabled(false);
             hexWestArea.setFont(new Font("Courier New", 1, 15));
             hexWestPanel.add(hexWestArea);
-//
-//            textArea = new JTextArea(23, 24); // Текстовая область данных
-//            textArea.setFont(new Font("Courier New", 1, 15));
-//            hexEastPanel.add(textArea);
 
-
-            center.add(hexScrollPane);
+            center.add(hexPanel);
         }
 //  <----------------------------------------------------------------->
 
@@ -87,10 +77,6 @@ public class CenterPanel extends JPanel {
             JPanel textNorthPanel = new JPanel(); // Верхняя панель с адресами колонок
             textPanel.add(textNorthPanel, BorderLayout.NORTH);
 
-            JScrollPane textScrollPane = new JScrollPane(textPanel);
-            textScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-            textScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-
             textArea = new JTextArea(23, 24); // Текстовая область данных
             textArea.setFont(new Font("Courier New", 1, 15));
             textCenterPanel.add(textArea);
@@ -100,11 +86,11 @@ public class CenterPanel extends JPanel {
             northTextArea.setEnabled(false);
             textNorthPanel.add(northTextArea);
 
-            center.add(textScrollPane);
+            center.add(textPanel);
         }
 //  <----------------------------------------------------------------->
 
-        this.add(center,BorderLayout.CENTER);
+        this.add(scrollPane,BorderLayout.CENTER);
         this.setVisible(true);
 
 //  Listeners
@@ -180,6 +166,7 @@ public class CenterPanel extends JPanel {
     public void setContent(StringBuilder textContent, StringBuilder hexContent){
         this.textContent = new StringBuilder();
         this.hexContent = new StringBuilder();
+        this.width = app.getWidth();
         if(textContent.length()%width==0) height = textContent.length()/width;
         else height = (textContent.length()/width) + 1;
         for(int i = 0;i<textContent.length();i++){
@@ -217,6 +204,15 @@ public class CenterPanel extends JPanel {
             strAdr.append('\n');
         }
         heightArea.setText(strAdr.toString());
+
+        JPanel widthPanel = (JPanel) hexPanel.getComponent(1);
+        JTextArea widthArea = (JTextArea) widthPanel.getComponent(0);
+        StringBuilder strAdrWidth = new StringBuilder("00000000 ");
+        for(int i=1;i<=this.width;i++){
+            strAdrWidth.append(String.format("%02X",i).toLowerCase());
+            strAdrWidth.append(" ");
+        }
+        widthArea.setText(strAdrWidth.toString());
         this.revalidate();
     }
 }
