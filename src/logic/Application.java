@@ -1,6 +1,9 @@
-package gui;
+package logic;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import gui.MainFrame;
+import gui.Type;
 
 public class Application{ // Класс приложения, содержит данные и методы для обработки изменения фреймов
     private MainFrame mainFrame;
@@ -8,12 +11,17 @@ public class Application{ // Класс приложения, содержит �
     private StringBuilder textContent;
     private ArrayList<Integer> data;
     private int width;
+    private ByteFileReader reader;
     public Application(int width){
         this.width = width;
         mainFrame = new MainFrame(this);
+        reader = new ByteFileReader();
     }
+    public ByteFileReader getReader(){return this.reader;}
     public void setWidth(int width){
         this.width = width;
+        this.updateContent();
+        this.update();
     }
     public int getWidth() {
         return width;
@@ -22,6 +30,7 @@ public class Application{ // Класс приложения, содержит �
         this.data = data;
         this.updateContent();
     }
+    public ArrayList<Integer> getData(){return this.data;}
     public void updateContent(){
         int i = 0;
         hexContent = new StringBuilder();
@@ -45,7 +54,7 @@ public class Application{ // Класс приложения, содержит �
     public void insert(int offset, String text){ // вставка промежутка текста
         for(int i=0;i<text.length();i++) data.add(offset+i,(int)text.charAt(i));
     }
-    public void onTextChange(int offset,int length ,Type type, String text){
+    public void onTextChange(int offset, int length , Type type, String text){
 
         if (type.equals(Type.REMOVE)) this.remove(offset, length);
 
@@ -74,5 +83,9 @@ public class Application{ // Класс приложения, содержит �
 
         this.updateContent();
         this.update();
+    }
+    public void readFile(String filename) throws IOException {
+        reader.setFilename(filename);
+        this.setData(reader.getData());
     }
 }

@@ -2,12 +2,13 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
+import logic.Application;
 
 public class MainFrame extends JFrame { // Основной фрейм приложения, все остальные области находятся внутри него
 
     private Application app;
     private CenterPanel centerPanel;
-    private JPanel north;
+    private NorthPanel north;
     private JPanel south;
     private JPanel west;
     private JPanel east;
@@ -15,7 +16,7 @@ public class MainFrame extends JFrame { // Основной фрейм прил�
         this.app = app;
         this.setTitle("MainFrame");
         this.setLayout(new BorderLayout());
-        this.setMinimumSize(new Dimension(500,500));
+        this.setMinimumSize(new Dimension(700,500));
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -23,8 +24,7 @@ public class MainFrame extends JFrame { // Основной фрейм прил�
 
         this.centerPanel = new CenterPanel(app);
 
-        this.north = new JPanel();
-        this.north.setBackground(Color.CYAN);
+        this.north = new NorthPanel(app);
         this.south = new JPanel();
         this.south.setBackground(Color.MAGENTA);
         this.west = new JPanel();

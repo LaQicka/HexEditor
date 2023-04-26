@@ -1,6 +1,7 @@
 package gui;
 
 import logic.Application;
+import logic.ByteFileReader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -55,7 +56,14 @@ public class NorthPanel extends JMenuBar {
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                boolean res;
+                ByteFileReader reader = app.getReader();
+                reader.setData(app.getData());
+                res = reader.save("moded_"+reader.getFilename());
+                if(res){
+                    JOptionPane.showMessageDialog(null, "File successfully saved");
+                }
+                else JOptionPane.showMessageDialog(null, "Something go wrong, try again");
             }
         });
 // метод отслеживание изменения пользователем количества колонок текста
