@@ -16,7 +16,7 @@ public class MainFrame extends JFrame { // Основной фрейм прил�
         this.app = app;
         this.setTitle("MainFrame");
         this.setLayout(new BorderLayout());
-        this.setMinimumSize(new Dimension(700,500));
+        this.setMinimumSize(new Dimension(1000,500));
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -43,5 +43,4 @@ public class MainFrame extends JFrame { // Основной фрейм прил�
     public void setContent(StringBuilder textContent, StringBuilder hexContent){
         this.centerPanel.setContent(textContent,hexContent);
     }
-
 }

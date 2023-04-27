@@ -49,10 +49,11 @@ public class Application{ // Класс приложения, содержит �
         mainFrame.setContent(this.textContent,this.hexContent);
     }
     public void remove(int offset, int length){ // удаление промежутка текста
-        for(int i=0;i<length;i++) data.remove(offset);
+        for(int i=0;i<length;i++) if(data.size()>0)data.remove(offset);
     }
     public void insert(int offset, String text){ // вставка промежутка текста
-        for(int i=0;i<text.length();i++) data.add(offset+i,(int)text.charAt(i));
+        if(data.size()>0)for(int i=0;i<text.length();i++) data.add(offset+i,(int)text.charAt(i));
+        else for(int i=0;i<text.length();i++) data.add((int) text.charAt(i));
     }
     public void onTextChange(int offset, int length , Type type, String text){
 
@@ -69,7 +70,8 @@ public class Application{ // Класс приложения, содержит �
     public void onHexChange(StringBuilder hex){
         hexContent = new StringBuilder();
         for(int i=0;i<hex.length();i++){
-            if(hex.charAt(i)!=' ' && hex.charAt(i)!='\n')hexContent.append(hex.charAt(i));
+            if(hex.charAt(i)!=' ' && hex.charAt(i)!='\n' &&
+                    ( ((int)hex.charAt(i)>=97 && (int)hex.charAt(i)<=102) || (((int)hex.charAt(i)>=48 && (int)hex.charAt(i)<=57)) ))hexContent.append(hex.charAt(i));
         }
         data.clear();
         for(int i=0;i<hexContent.length();i+=2){

@@ -1,13 +1,16 @@
 package gui;
 
-import logic.Application;
+import logic.*;
 
 import javax.swing.*;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import java.awt.*;
+
 
 public class CenterPanel extends JPanel {
 
@@ -26,7 +29,8 @@ public class CenterPanel extends JPanel {
         this.app = app;
         this.width = app.getWidth();
         this.height = 0;
-        this.setLayout(new BorderLayout());
+
+        this.setLayout(new GridLayout(1, 2));
         center = new JPanel(new GridLayout(1, 2));
 
         JScrollPane scrollPane = new JScrollPane(center);
@@ -46,7 +50,7 @@ public class CenterPanel extends JPanel {
             JPanel hexWestPanel = new JPanel();
             hexPanel.add(hexWestPanel, BorderLayout.WEST);
 
-            hexArea = new JTextArea(23, 24); // Текстовая область данных
+            hexArea = new JTextArea(); // Текстовая область данных
             hexArea.setFont(new Font("Courier New", 1, 15));
             hexCenterPanel.add(hexArea);
 
@@ -70,6 +74,7 @@ public class CenterPanel extends JPanel {
 //  <----------------------------------------------------------------->
         {
             textPanel = new JPanel(new BorderLayout());
+//            textPanel.setL
 
             JPanel textCenterPanel = new JPanel(); // Центральная панель с данными
             textPanel.add(textCenterPanel, BorderLayout.CENTER);
@@ -77,7 +82,7 @@ public class CenterPanel extends JPanel {
             JPanel textNorthPanel = new JPanel(); // Верхняя панель с адресами колонок
             textPanel.add(textNorthPanel, BorderLayout.NORTH);
 
-            textArea = new JTextArea(23, 24); // Текстовая область данных
+            textArea = new JTextArea(); // Текстовая область данных
             textArea.setFont(new Font("Courier New", 1, 15));
             textCenterPanel.add(textArea);
 
@@ -125,7 +130,7 @@ public class CenterPanel extends JPanel {
                         else onTextChange(offset-offset/app.getWidth(),length,Type.INSERT, text);                            // требуется менять offset
                     }
                 }
-                textArea.setCaretPosition(offset);
+                if(textContent.length()>=offset+1)textArea.setCaretPosition(offset+1);
             }
             //offset - индекс измененного символа
         });
@@ -155,12 +160,12 @@ public class CenterPanel extends JPanel {
             }
             public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
                 super.replace(fb, offset, length, text, attrs);
-                StringBuilder now = new StringBuilder(hexArea.getText());
+                StringBuilder now = new StringBuilder(hexArea.getText().toLowerCase());
                 if(!now.toString().equals(hexContent.toString())) {
                     StringBuilder hex = new StringBuilder(hexArea.getText());
                     onHexChange(hex);
                 }
-                hexArea.setCaretPosition(offset);
+                if(hexContent.length()>=offset+1)hexArea.setCaretPosition(offset+1);
             }
             //offset - индекс измененного символа
         });

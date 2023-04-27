@@ -9,7 +9,6 @@ public class ByteFileReader {
     public String getFilename() {
         return filename;
     }
-//    public FileReader(){}
     public void setFilename(String filename) throws IOException {
         data = new ArrayList<>();
         this.filename = filename;
