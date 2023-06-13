@@ -1,3 +1,4 @@
+import FileStaff.AppFileReader;
 import gui.Application;
 
 import java.io.IOException;
@@ -6,13 +7,13 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        FileReader fileReader = new FileReader();
-        fileReader.setFilename("Telegram");
+        AppFileReader appFileReader = new AppFileReader();
+        appFileReader.setFilename("Telegram");
 
-        ArrayList<Integer> data = new ArrayList<>();
+//        ArrayList<Integer> data = appFileReader.getData();
 
-        Application app = new Application(4);
-        app.setData(data);
+        Application app = new Application(16);
+//        app.setData(data);
         app.update();
     }
 

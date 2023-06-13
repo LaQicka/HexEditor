@@ -1,16 +1,23 @@
 package gui;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import FileStaff.*;
 
 public class Application{ // Класс приложения, содержит данные и методы для обработки изменения фреймов
     private MainFrame mainFrame;
     private StringBuilder hexContent;
     private StringBuilder textContent;
     private ArrayList<Integer> data;
+    private AppFileReader fileReader;
     private int width;
     public Application(int width){
-        this.width = width;
+        this.width = 4;
         mainFrame = new MainFrame(this);
+        this.fileReader = new AppFileReader();
+        this.data = new ArrayList<>();
+        this.hexContent = new StringBuilder();
+        this.textContent = new StringBuilder();
     }
     public void setWidth(int width){
         this.width = width;
@@ -73,6 +80,12 @@ public class Application{ // Класс приложения, содержит �
             }
         }
 
+        this.updateContent();
+        this.update();
+    }
+    public void onFileChange(String filename) throws IOException {
+        this.fileReader.setFilename(filename);
+        this.data = fileReader.getData();
         this.updateContent();
         this.update();
     }

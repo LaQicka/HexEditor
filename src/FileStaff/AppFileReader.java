@@ -1,12 +1,17 @@
+package FileStaff;
+
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class FileReader {
+public class AppFileReader {
     private String filename;
     private ArrayList<Integer> data;
+
+    public AppFileReader(){
+
+    }
     public String getFilename() {
         return filename;
     }

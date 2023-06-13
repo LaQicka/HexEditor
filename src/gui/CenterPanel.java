@@ -26,9 +26,6 @@ public class CenterPanel extends JPanel {
         this.height = 0;
         this.setLayout(new BorderLayout());
         center = new JPanel(new GridLayout(1, 2));
-//        center = new JPanel();
-//        JScrollPane centerScrollPane = new JScrollPane(center);
-//        centerScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
 //  HEX Panel config
 //  <----------------------------------------------------------------->

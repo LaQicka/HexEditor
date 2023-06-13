@@ -7,7 +7,7 @@ public class MainFrame extends JFrame { // Основной фрейм прил�
 
     private Application app;
     private CenterPanel centerPanel;
-    private JPanel north;
+    private NorthPanel north;
     private JPanel south;
     private JPanel west;
     private JPanel east;
@@ -23,8 +23,8 @@ public class MainFrame extends JFrame { // Основной фрейм прил�
 
         this.centerPanel = new CenterPanel(app);
 
-        this.north = new JPanel();
-        this.north.setBackground(Color.CYAN);
+        this.north = new NorthPanel(app);
+//        this.north.setBackground(Color.CYAN);
         this.south = new JPanel();
         this.south.setBackground(Color.MAGENTA);
         this.west = new JPanel();
