@@ -50,7 +50,9 @@ public class Application{ // Класс приложения, содержит �
         for(int i=0;i<length;i++) data.remove(offset);
     }
     public void insert(int offset, String text){ // вставка промежутка текста
-        for(int i=0;i<text.length();i++) data.add(offset+i,(int)text.charAt(i));
+        for(int i=0;i<text.length();i++) {
+            data.add(offset - 1 + i, (int) text.charAt(i));
+        }
     }
     public void onTextChange(int offset,int length ,Type type, String text){
 
@@ -59,7 +61,8 @@ public class Application{ // Класс приложения, содержит �
         else if (type.equals(Type.REPLACE)) {
             this.remove(offset, length);
             this.insert(offset, text);
-        } else if (type.equals(Type.INSERT)) this.insert(offset, text);
+        }
+        else if (type.equals(Type.INSERT)) this.insert(offset, text);
 
         this.updateContent();
         this.update();

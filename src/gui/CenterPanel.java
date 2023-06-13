@@ -124,15 +124,14 @@ public class CenterPanel extends JPanel {
                 super.replace(fb, offset, length, text, attrs);
                 StringBuilder now = new StringBuilder(textArea.getText());
                 if(!now.toString().equals(textContent.toString())) {
-                    if(length>0){
-                        System.out.println(text);
-                        System.out.println(length);
-                        System.out.println(offset-offset/app.getWidth());
-                        onTextChange(offset-offset/app.getWidth(),length,Type.REPLACE, text);
-                    }else{
-                        if(offset%app.getWidth()==0)onTextChange((offset+1)-offset/app.getWidth(),length,Type.INSERT, text); // из-за того что в цонце каждой строки есть \n
-                        else onTextChange(offset-offset/app.getWidth(),length,Type.INSERT, text);                            // требуется менять offset
-                    }
+                    onTextChange(offset-(offset/app.getWidth()-1),length,Type.REPLACE, text);
+
+//                    if(length>0){
+//                        onTextChange(offset-offset/app.getWidth(),length,Type.REPLACE, text);
+//                    }else{
+//                        if(offset%app.getWidth()==0)onTextChange((offset+1)-offset/app.getWidth(),length,Type.INSERT, text); // из-за того что в цонце каждой строки есть \n
+//                        else onTextChange(offset-offset/app.getWidth(),length,Type.INSERT, text);                            // требуется менять offset
+//                    }
                 }
             }
             //offset - индекс измененного символа
