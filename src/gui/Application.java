@@ -60,7 +60,8 @@ public class Application{ // Класс приложения, содержит �
     public void onHexChange(StringBuilder hex){
         hexContent = new StringBuilder();
         for(int i=0;i<hex.length();i++){
-            if(hex.charAt(i)!=' ' && hex.charAt(i)!='\n')hexContent.append(hex.charAt(i));
+            int temp = hex.charAt(i);
+            if(hex.charAt(i)!=' '  && hex.charAt(i)!='\n' && temp < 103)hexContent.append(hex.charAt(i));
         }
         data.clear();
         for(int i=0;i<hexContent.length();i+=2){

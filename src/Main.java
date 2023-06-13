@@ -9,9 +9,9 @@ public class Main {
         FileReader fileReader = new FileReader();
         fileReader.setFilename("Telegram");
 
-        ArrayList<Integer> data = fileReader.getData();
+        ArrayList<Integer> data = new ArrayList<>();
 
-        Application app = new Application(16);
+        Application app = new Application(4);
         app.setData(data);
         app.update();
     }
