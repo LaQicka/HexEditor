@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 
@@ -24,6 +25,7 @@ public class NorthPanel extends JPanel {
         this.add(save);
 
         open.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setDialogTitle("Выберите файл"); // Название диалогового окна
@@ -44,6 +46,22 @@ public class NorthPanel extends JPanel {
                 }
         });
 
+        save.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Сохранить файл"); // Название диалогового окна
+
+                int userSelection = fileChooser.showSaveDialog(new JPanel());
+
+                if (userSelection == JFileChooser.APPROVE_OPTION) { // Если файл выбран
+                    File fileToSave = fileChooser.getSelectedFile(); // Получение выбранного файла
+                    app.onSaveFile(fileToSave.getAbsolutePath());
+                    System.out.println(fileToSave.getAbsolutePath());
+                }
+
+            }
+        });
     }
 
 }

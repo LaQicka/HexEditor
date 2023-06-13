@@ -1,9 +1,8 @@
 package FileStaff;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class AppFileReader {
     private String filename;
@@ -24,5 +23,26 @@ public class AppFileReader {
     }
     public ArrayList<Integer> getData() {
         return data;
+    }
+    public void setData(ArrayList<Integer> data){ this.data = data; }
+    public void writeToFile(String filename){
+
+        StringBuilder content = new StringBuilder();
+        for(int i=0;i<data.size();i++){
+            content.append(Character.highSurrogate(data.get(i)));
+        }
+        try{
+            FileOutputStream output = new FileOutputStream(filename);
+
+            for(int i=0;i<data.size();i++){
+                output.write(data.get(i));
+            }
+
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+
+
+
     }
 }

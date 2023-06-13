@@ -89,4 +89,8 @@ public class Application{ // Класс приложения, содержит �
         this.updateContent();
         this.update();
     }
+    public void onSaveFile(String filename){
+        this.fileReader.setData(this.data);
+        this.fileReader.writeToFile(filename);
+    }
 }

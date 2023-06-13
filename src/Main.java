@@ -10,10 +10,8 @@ public class Main {
         AppFileReader appFileReader = new AppFileReader();
         appFileReader.setFilename("Telegram");
 
-//        ArrayList<Integer> data = appFileReader.getData();
 
         Application app = new Application(16);
-//        app.setData(data);
         app.update();
     }
 
