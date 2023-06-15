@@ -14,7 +14,7 @@ public class Application{ // Класс приложения, содержит �
 
 //  Конструктор - проводит инициализацию основного фрейма и класса считывания/записи файлов
     public Application(int width){
-        this.width = 4;
+        this.width = width;
         mainFrame = new MainFrame(this);
         this.fileReader = new AppFileReader();
         this.data = new ArrayList<>();
