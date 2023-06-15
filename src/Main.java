@@ -2,7 +2,9 @@ import FileStaff.AppFileReader;
 import gui.Application;
 
 import java.io.IOException;
-import java.util.ArrayList;
+
+// Попробовать сделать многооконное приложение
+
 
 public class Main {
     public static void main(String[] args) throws IOException {

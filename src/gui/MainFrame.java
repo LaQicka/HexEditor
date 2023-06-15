@@ -15,7 +15,7 @@ public class MainFrame extends JFrame { // Основной фрейм прил�
         this.app = app;
         this.setTitle("MainFrame");
         this.setLayout(new BorderLayout());
-        this.setMinimumSize(new Dimension(500,500));
+        this.setMinimumSize(new Dimension(1000,500));
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
