@@ -6,6 +6,7 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import java.awt.*;
+import logic.*;
 
 // Центральная панель приложения. Содержит основные текстовые области для обработки содержимого
 public class CenterPanel extends JPanel {

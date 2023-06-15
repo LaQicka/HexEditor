@@ -1,8 +1,9 @@
-package gui;
+package logic;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import FileStaff.*;
+import gui.*;
 
 // Класс приложения, содержит данные и методы для обработки изменения фреймов
 public class Application{

@@ -26,11 +26,11 @@ public class AppFileReader {
             InputStream iStream = new FileInputStream(filename);
             int value;
             while ((value = iStream.read()) !=-1 )data.add(value);
+            iStream.close();
         }catch (IOException e){
             data = null;
             throw new RuntimeException(e);
         }
-//        System.out.println(this.filename + " : " + data);
     }
 
 //
@@ -45,9 +45,6 @@ public class AppFileReader {
     public void writeToFile(String filename){
 
         StringBuilder content = new StringBuilder();
-        for(int i=0;i<data.size();i++){
-            content.append(Character.highSurrogate(data.get(i)));
-        }
         try{
             FileOutputStream output = new FileOutputStream(filename);
 
@@ -55,6 +52,7 @@ public class AppFileReader {
                 output.write(data.get(i));
             }
 
+            output.close();
         }catch (Exception e){
             throw new RuntimeException(e);
         }

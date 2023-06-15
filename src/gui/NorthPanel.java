@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import logic.*;
 
 // Класс верхней панели приложения. Содержит интерфейс для работы с текстовыми областями
 public class NorthPanel extends JPanel {
