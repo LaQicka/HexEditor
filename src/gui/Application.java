@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import FileStaff.*;
 
-public class Application{ // Класс приложения, содержит данные и методы для обработки изменения фреймов
+// Класс приложения, содержит данные и методы для обработки изменения фреймов
+public class Application{
     private MainFrame mainFrame;
     private StringBuilder hexContent;
     private StringBuilder textContent;

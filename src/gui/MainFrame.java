@@ -3,7 +3,8 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 
-public class MainFrame extends JFrame { // Основной фрейм приложения, все остальные области находятся внутри него
+// Основной фрейм приложения, все остальные области находятся внутри него
+public class MainFrame extends JFrame {
 
     private Application app;
     private CenterPanel centerPanel;
@@ -11,6 +12,8 @@ public class MainFrame extends JFrame { // Основной фрейм прил�
     private JPanel south;
     private JPanel west;
     private JPanel east;
+
+
     public MainFrame(Application app){
         this.app = app;
         this.setTitle("MainFrame");
@@ -26,11 +29,11 @@ public class MainFrame extends JFrame { // Основной фрейм прил�
         this.north = new NorthPanel(app);
 //        this.north.setBackground(Color.CYAN);
         this.south = new JPanel();
-        this.south.setBackground(Color.MAGENTA);
+//        this.south.setBackground(Color.MAGENTA);
         this.west = new JPanel();
-        this.west.setBackground(Color.GREEN);
+//        this.west.setBackground(Color.GREEN);
         this.east = new JPanel();
-        this.east.setBackground(Color.ORANGE);
+//        this.east.setBackground(Color.ORANGE);
 
         this.add(centerPanel, BorderLayout.CENTER);
         this.add(north,BorderLayout.NORTH);
@@ -40,6 +43,7 @@ public class MainFrame extends JFrame { // Основной фрейм прил�
         this.setVisible(true);
     }
 
+//  Метод установки содержимого на центральную панель
     public void setContent(StringBuilder textContent, StringBuilder hexContent){
         this.centerPanel.setContent(textContent,hexContent);
     }

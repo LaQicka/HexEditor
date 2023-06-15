@@ -4,12 +4,9 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 
+// Класс верхней панели приложения. Содержит интерфейс для работы с текстовыми областями
 public class NorthPanel extends JPanel {
-
-    private JButton open;
-    private JButton newFile;
     private JButton save;
     private Application app;
     private JComboBox<Integer> widthBox;

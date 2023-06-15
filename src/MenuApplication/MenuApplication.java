@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
+// Класс - главное меню приложения. Открытие и создание файлов происходят через него
 public class MenuApplication {
 
     private JFrame MainFrame;
@@ -39,6 +40,7 @@ public class MenuApplication {
 
 //  Buttons Actions Listeners
 
+        // Open button listener
         openFile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -70,6 +72,8 @@ public class MenuApplication {
             }
         });
 
+
+        // NewFile button Listener
         newFile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

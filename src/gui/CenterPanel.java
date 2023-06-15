@@ -7,6 +7,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import java.awt.*;
 
+// Центральная панель приложения. Содержит основные текстовые области для обработки содержимого
 public class CenterPanel extends JPanel {
 
     Application app;
@@ -19,6 +20,8 @@ public class CenterPanel extends JPanel {
     private JPanel center;
     private JPanel north;
     private int height;
+
+//  Конструктор - происходит инициализация всех текстовых областей и панелей.
     public CenterPanel(Application app) {
         this.app = app;
         this.height = 0;
@@ -30,9 +33,6 @@ public class CenterPanel extends JPanel {
         {
             hexPanel = new JPanel(new BorderLayout());
             hexPanel.setLayout(new BoxLayout(hexPanel,BoxLayout.X_AXIS));
-
-//            JPanel hexNorthPanel = new JPanel(new FlowLayout()); // Верхняя панель с адресами колонок
-//            hexPanel.add(hexNorthPanel, BorderLayout.NORTH);
 
             JPanel hexWestPanel = new JPanel();
             hexPanel.add(hexWestPanel);
@@ -120,13 +120,6 @@ public class CenterPanel extends JPanel {
                 StringBuilder now = new StringBuilder(textArea.getText());
                 if(!now.toString().equals(textContent.toString())) {
                     onTextChange(offset-(offset/app.getWidth()-1),length,Type.REPLACE, text);
-
-//                    if(length>0){
-//                        onTextChange(offset-offset/app.getWidth(),length,Type.REPLACE, text);
-//                    }else{
-//                        if(offset%app.getWidth()==0)onTextChange((offset+1)-offset/app.getWidth(),length,Type.INSERT, text); // из-за того что в цонце каждой строки есть \n
-//                        else onTextChange(offset-offset/app.getWidth(),length,Type.INSERT, text);                            // требуется менять offset
-//                    }
                 }
             }
             //offset - индекс измененного символа
