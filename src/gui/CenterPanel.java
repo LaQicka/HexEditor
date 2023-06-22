@@ -120,6 +120,7 @@ public class CenterPanel extends JPanel {
             public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
                 String selected = textArea.getSelectedText();
                 super.replace(fb, offset, length, text, attrs);
+                if(offset%(app.getWidth()+1) == app.getWidth() && offset!=0) offset--; // Индекс элемента '\n' меняется на индекс элемента до этого символа
                 for(int i=0;selected!=null && i<selected.length();i++) if(selected.charAt(i) == '\n') length--; // пересчет длины строки для удаления без /n
                 StringBuilder now = new StringBuilder(textArea.getText());
 
