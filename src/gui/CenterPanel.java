@@ -111,16 +111,21 @@ public class CenterPanel extends JPanel {
             public void remove(FilterBypass fb, int offset, int length) throws BadLocationException {
                 String selected = textArea.getSelectedText();
                 super.remove(fb, offset, length);
+                if(offset%(app.getWidth()+1) == app.getWidth() && offset!=0) offset--; // Индекс элемента '\n' меняется на индекс элемента до этого символа
                 for(int i=0;selected!=null && i<selected.length();i++) if(selected.charAt(i) == '\n') length--; // пересчет длины строки для удаления без /n
                 StringBuilder now = new StringBuilder(textArea.getText());
-                if(!now.toString().equals(textContent.toString())) onTextChange(offset-offset/app.getWidth(),length,Type.REMOVE, "");
+                if(!now.toString().equals(textContent.toString())) onTextChange(offset-offset/(app.getWidth()+1),length,Type.REMOVE, "");
 
             }
             public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                String selected = textArea.getSelectedText();
                 super.replace(fb, offset, length, text, attrs);
+                for(int i=0;selected!=null && i<selected.length();i++) if(selected.charAt(i) == '\n') length--; // пересчет длины строки для удаления без /n
                 StringBuilder now = new StringBuilder(textArea.getText());
+
                 if(!now.toString().equals(textContent.toString())) {
-                    onTextChange(offset-(offset/app.getWidth()-1),length,Type.REPLACE, text);
+                    if(length>0)onTextChange(offset-offset/(app.getWidth()+1),length,Type.REPLACE, text);
+                    else onTextChange(offset-offset/(app.getWidth()+1),length,Type.INSERT, text);
                 }
             }
             //offset - индекс измененного символа

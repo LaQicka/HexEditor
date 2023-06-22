@@ -2,6 +2,8 @@ package logic;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
 import FileStaff.*;
 import gui.*;
 
@@ -64,13 +66,13 @@ public class Application{
 
 //  Метод удаления определенного промежутка байт
     public void remove(int offset, int length){ // удаление промежутка текста
-        for(int i=0;i<length;i++) data.remove(offset);
+        for(int i=0;i<length;i++)data.remove(offset);
     }
 
 //  Метод вставки промежутка байт
     public void insert(int offset, String text){ // вставка промежутка текста
         for(int i=0;i<text.length();i++) {
-            data.add(offset - 1 + i, (int) text.charAt(i));
+            data.add(offset + i, (int) text.charAt(i));
         }
     }
 
@@ -84,7 +86,6 @@ public class Application{
             this.insert(offset, text);
         }
         else if (type.equals(Type.INSERT)) this.insert(offset, text);
-
         this.updateContent();
         this.update();
     }
