@@ -111,22 +111,23 @@ public class CenterPanel extends JPanel {
             public void remove(FilterBypass fb, int offset, int length) throws BadLocationException {
                 String selected = textArea.getSelectedText();
                 super.remove(fb, offset, length);
-                if(offset%(app.getWidth()+1) == app.getWidth() && offset!=0) offset--; // Индекс элемента '\n' меняется на индекс элемента до этого символа
-                for(int i=0;selected!=null && i<selected.length();i++) if(selected.charAt(i) == '\n') length--; // пересчет длины строки для удаления без /n
+                System.out.println(offset);
+//                if(offset%(app.getWidth()+1) == app.getWidth() && offset!=0) offset--; // Индекс элемента '\n' меняется на индекс элемента до этого символа
+//                for(int i=0;selected!=null && i<selected.length();i++) if(selected.charAt(i) == '\n') length--; // пересчет длины строки для удаления без /n
                 StringBuilder now = new StringBuilder(textArea.getText());
-                if(!now.toString().equals(textContent.toString())) onTextChange(offset-offset/(app.getWidth()+1),length,Type.REMOVE, "");
+                if(!now.toString().equals(textContent.toString())) onTextChange(offset,length,Type.REMOVE, "", selected);
 
             }
             public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
                 String selected = textArea.getSelectedText();
                 super.replace(fb, offset, length, text, attrs);
-                if(offset%(app.getWidth()+1) == app.getWidth() && offset!=0) offset--; // Индекс элемента '\n' меняется на индекс элемента до этого символа
-                for(int i=0;selected!=null && i<selected.length();i++) if(selected.charAt(i) == '\n') length--; // пересчет длины строки для удаления без /n
+//                if(offset%(app.getWidth()+1) == app.getWidth() && offset!=0) offset--; // Индекс элемента '\n' меняется на индекс элемента до этого символа
+//                for(int i=0;selected!=null && i<selected.length();i++) if(selected.charAt(i) == '\n') length--; // пересчет длины строки для удаления без /n
                 StringBuilder now = new StringBuilder(textArea.getText());
 
                 if(!now.toString().equals(textContent.toString())) {
-                    if(length>0)onTextChange(offset-offset/(app.getWidth()+1),length,Type.REPLACE, text);
-                    else onTextChange(offset-offset/(app.getWidth()+1),length,Type.INSERT, text);
+                    if(length>0)onTextChange(offset, length, Type.REPLACE, text, selected);
+                    else onTextChange(offset, length, Type.INSERT, text, selected);
                 }
             }
             //offset - индекс измененного символа
@@ -187,8 +188,21 @@ public class CenterPanel extends JPanel {
 
     }
 
+    public int offsetCount(int offset, int width){
+        if(offset%(width+1) == width && offset!=0) offset--; // Индекс элемента '\n' меняется на индекс элемента до этого символа
+        offset = offset-offset/(width+1);
+        return offset;
+    }
+
+    public int lengthCount(int length, String selected){
+        for(int i=0;selected!=null && i<selected.length();i++) if(selected.charAt(i) == '\n') length--; // пересчет длины строки для удаления без /n
+        return length;
+    }
+
 //  Метод обработки изменений текстовой области
-    public void onTextChange(int offset,int length, Type type, String text){
+    public void onTextChange(int offset,int length, Type type, String text,String selected){
+        this.offsetCount(offset,app.getWidth());
+        this.lengthCount(length,selected);
         app.onTextChange(offset,length,type,text);
     }
 
