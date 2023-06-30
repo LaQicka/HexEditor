@@ -111,7 +111,6 @@ public class CenterPanel extends JPanel {
             public void remove(FilterBypass fb, int offset, int length) throws BadLocationException {
                 String selected = textArea.getSelectedText();
                 super.remove(fb, offset, length);
-                System.out.println(offset);
 //                if(offset%(app.getWidth()+1) == app.getWidth() && offset!=0) offset--; // Индекс элемента '\n' меняется на индекс элемента до этого символа
 //                for(int i=0;selected!=null && i<selected.length();i++) if(selected.charAt(i) == '\n') length--; // пересчет длины строки для удаления без /n
                 StringBuilder now = new StringBuilder(textArea.getText());
@@ -190,7 +189,7 @@ public class CenterPanel extends JPanel {
 
     public int offsetCount(int offset, int width){
         if(offset%(width+1) == width && offset!=0) offset--; // Индекс элемента '\n' меняется на индекс элемента до этого символа
-        offset = offset-offset/(width+1);
+        offset -= offset/(width+1);
         return offset;
     }
 
@@ -201,8 +200,8 @@ public class CenterPanel extends JPanel {
 
 //  Метод обработки изменений текстовой области
     public void onTextChange(int offset,int length, Type type, String text,String selected){
-        this.offsetCount(offset,app.getWidth());
-        this.lengthCount(length,selected);
+        offset = this.offsetCount(offset,app.getWidth());
+        length = this.lengthCount(length,selected);
         app.onTextChange(offset,length,type,text);
     }
 

@@ -2,7 +2,6 @@ package logic;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import FileStaff.*;
 import gui.*;
@@ -14,11 +13,15 @@ public class Application{
     private StringBuilder textContent;
     private ArrayList<Integer> data;
     private AppFileReader fileReader;
+    private int pageAmount;
+    private int currentPage;
     private int width;
 
 //  Конструктор - проводит инициализацию основного фрейма и класса считывания/записи файлов
     public Application(int width){
         this.width = width;
+        this.pageAmount = 0;
+        this.currentPage = 0;
         mainFrame = new MainFrame(this);
         this.fileReader = new AppFileReader();
         this.data = new ArrayList<>();
@@ -37,10 +40,11 @@ public class Application{
         return width;
     }
 
+    public int getPageAmount(){ return pageAmount; }
+
 //  Метод установки массива байт
     public void setData(ArrayList<Integer> data){
         this.data = data;
-        this.updateContent();
     }
 
 //  Метод обновления контентного содержимого переменных внутри класса
@@ -57,6 +61,9 @@ public class Application{
             }
         }
         mainFrame.setContent(textContent,hexContent);
+
+        long fileSize = this.fileReader.getFileSize();
+        this.pageAmount = this.fileReader.getPageAmount();
     }
 
 //  Метод обновления содержимого основного фрейма
@@ -72,13 +79,13 @@ public class Application{
 //  Метод вставки промежутка байт
     public void insert(int offset, String text){ // вставка промежутка текста
         for(int i=0;i<text.length();i++) {
-            data.add(offset + i, (int) text.charAt(i));
+            if(offset + i<data.size())data.add(offset + i, (int) text.charAt(i));
+            else data.add((int) text.charAt(i));
         }
     }
 
 //  Метод, обрабатывающий изменения содержимого текстовой панели
     public void onTextChange(int offset,int length ,Type type, String text){
-
         if (type.equals(Type.REMOVE)) this.remove(offset, length);
 
         else if (type.equals(Type.REPLACE)) {
@@ -94,8 +101,7 @@ public class Application{
     public void onHexChange(StringBuilder hex){
         hexContent = new StringBuilder();
         for(int i=0;i<hex.length();i++){
-            int temp = hex.charAt(i);
-            if(hex.charAt(i)!=' '  && hex.charAt(i)!='\n' && temp < 103)hexContent.append(hex.charAt(i));
+            if(hex.charAt(i)!=' '  && hex.charAt(i)!='\n' && hex.charAt(i) < 103)hexContent.append(hex.charAt(i));
         }
         data.clear();
         for(int i=0;i<hexContent.length();i+=2){
@@ -114,14 +120,29 @@ public class Application{
 //  Метод, обрабатывающий смену входного файла. По сути просто открывает новый файл без сохранения старого
     public void onFileChange(String filename) throws IOException {
         this.fileReader.setFilename(filename);
-        this.data = fileReader.getData();
+        this.setData(fileReader.getData(0));
+        this.pageAmount = fileReader.getPageAmount();
+        this.mainFrame.setPageAmount(this.pageAmount);
         this.updateContent();
         this.update();
     }
 
 //  Метод сохранения содержимого в файл
-    public void onSaveFile(String filename){
+    public void onSaveFile(){
         this.fileReader.setData(this.data);
-        this.fileReader.writeToFile(filename);
+        this.fileReader.write(currentPage,data);
     }
+
+    public void changePage(int pageNumber){
+//        System.out.println(currentPage+" --> "+pageNumber);
+        this.fileReader.setData(this.data);
+        this.fileReader.write(this.currentPage,this.data);
+//        System.out.println(this.data);
+        this.data = fileReader.getData(pageNumber);
+
+        this.currentPage = pageNumber;
+        this.updateContent();
+        this.update();
+    }
+
 }

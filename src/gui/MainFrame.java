@@ -50,4 +50,9 @@ public class MainFrame extends JFrame {
         this.centerPanel.setContent(textContent,hexContent);
     }
 
+    public void setPageAmount(int pageAmount){
+        this.north.setPageAmount(pageAmount);
+    }
+
+
 }
