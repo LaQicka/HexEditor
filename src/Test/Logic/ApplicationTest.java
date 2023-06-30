@@ -10,18 +10,34 @@ public class ApplicationTest {
 
     @Test
     public void Test_offsetCount(){
+        /*
+
+        Text Field    \n
+
+        00 01 02 03 | 04            00 01 02 03
+        05 06 07 08 | 09   ======>  04 05 06 07
+        10 11 12 13 | 14            08 09 10 11
+        15 16 17 18 | 19            12 13 14 15
+
+         */
         Application app = new Application(4);
         CenterPanel center = new CenterPanel(app);
-        int offset = center.offsetCount(10,4);
-        assertEquals(8,offset);
-        offset = center.offsetCount(15,4);
-        assertEquals(12,offset);
 
-        offset = center.offsetCount(5,4);
-        assertEquals(4,offset);
-
-        offset = center.offsetCount(11,4);
-        assertEquals(9,offset);
+//      Nothing Change Test
+        int offset = center.offsetCount(1,4);
+        assertEquals(1,offset);
+//      Single '\n' deletion
+        offset = center.offsetCount(6,4);
+        assertEquals(5,offset);
+//      Many '\n' deletion
+        offset = center.offsetCount(16,4);
+        assertEquals(13,offset);
+//      If caret stay on '\n'
+        offset = center.offsetCount(4,4);
+        assertEquals(3,offset);
+//      If caret stay on '\n' and need to delete some '\n' before it
+        offset = center.offsetCount(14,4);
+        assertEquals(11,offset);
     }
 
     @Test
