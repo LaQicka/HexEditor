@@ -129,8 +129,7 @@ public class Application{
 
 //  Метод сохранения содержимого в файл
     public void onSaveFile(){
-        this.fileReader.setData(this.data);
-        this.fileReader.write(currentPage,data);
+        this.fileReader.save();
     }
 
     public void changePage(int pageNumber){
